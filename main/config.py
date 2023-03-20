@@ -4,4 +4,3 @@ ALPACA_API_SECRET_KEY = 'VKg8w1EOGhaZdmollAKWhsEJ3Sqwv3eTZjZ0Qsdf'
 
 ALPACA_API_BASE_URL = 'https://paper-api.alpaca.markets'
 
-
