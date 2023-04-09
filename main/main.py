@@ -51,14 +51,27 @@ class Stock():
 
         return self.data
 
+
+    def stock_limit_data(self):
+        self.data = {
+            'symbol' : self.ticker,
+            'qty': self.qty,
+            'side': self.side,
+            'type': self.order_type,
+            'time_in_force': 'day',
+            'limit_price': self.limit_price
+        }
+
+        return self.data
+
     def create_market_order(self):
         r = requests.post(ORDER_URL, json = self.data, headers = configEx.HEADERS)
         return r.content
 
 
     def create_limit_order(self):
-        self.data().update({'limit_price' : self.limit_price})
-        r = requests.post(ORDER_URL, json = self.stock_data(self), headers = configEx.HEADERS)
+        self.stock_limit_data()
+        r = requests.post(ORDER_URL, json = self.data, headers = configEx.HEADERS)
         return r.content
 
 menu =  """
@@ -73,12 +86,14 @@ option = int(input(menu))
 
     
 
-def stock_menu(option):
+def main(option):
+    ticker = input("Choose the stock you want to operate:  ")
+    side = input("Choose the operation you want to proceed with : ")
+    qty = input("Choose the amount of stocks for the operation:  ")
     while(option != -1):
+        #Market Order
+
         if(option == 1):
-            ticker = input("Choose the stock you want to operate:  ")
-            side = input("Choose the operation you want to proceed with : ")
-            qty = input("Choose the amount of stocks for the operation:  ")
             m = 'market'
             stock = Stock(ticker,qty,side,m)  
             data = stock.stock_data()
@@ -88,8 +103,33 @@ def stock_menu(option):
             if(c == "ACCEPT"):
                print("OPERATION COMPLETE !")
                stock.create_market_order()
+            else:
+                print("ERROR Try Again !")
+
+        #Limit Order
+        
         elif(option == 2):
-            print("Creating limit order....")
+            l = 'limit'
+            limit_stock = Stock(ticker,qty,side,l)
+            set_price = input("Set the limit price in dollars: ")
+            limit_stock.set_limit_price(set_price)
+            data = limit_stock.stock_limit_data()
+
+            print(data)
+            print(limit_stock.stock_info())
+            print_pricelimit = (f"""
+            Price Limit: {set_price}$
+                                """)
+            
+            print(print_pricelimit.upper())
+
+            c = input("Type ACCEPT to confirm operation: ")
+            if(c == "ACCEPT"):
+               print("OPERATION COMPLETE !")
+               limit_stock.create_limit_order()
+
+            else:
+               print(" ERROR Try Again!")         
         elif(option == 0):
             print("Return to menu")
         break
@@ -99,4 +139,4 @@ def stock_menu(option):
 
 
 if __name__ == "__main__":
-    stock_menu(option)
+    main(option)
