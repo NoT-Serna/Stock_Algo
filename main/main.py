@@ -5,6 +5,7 @@ import configEx
 ORDER_URL = '{}/v2/orders'. format(config.ALPACA_API_BASE_URL)
 
 
+
 class Stock():
 
     def __init__(self, ticker, qty, side, order_type):
