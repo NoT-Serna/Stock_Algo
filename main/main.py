@@ -92,8 +92,8 @@ def main(option):
     side = input("Choose the operation you want to proceed with : ")
     qty = input("Choose the amount of stocks for the operation:  ")
     while(option != -1):
-        #Market Order
 
+        #Market Order
         if(option == 1):
             m = 'market'
             stock = Stock(ticker,qty,side,m)  
@@ -107,8 +107,7 @@ def main(option):
             else:
                 print("ERROR Try Again !")
 
-        #Limit Order
-        
+        #Limit Order  
         elif(option == 2):
             l = 'limit'
             limit_stock = Stock(ticker,qty,side,l)
