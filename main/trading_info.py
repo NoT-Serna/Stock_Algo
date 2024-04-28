@@ -1,5 +1,4 @@
-from tradingview_ta import TA_Handler, Interval, Exchange
-
+from tradingview_ta import TA_Handler, Interval
 
 class Screener():
 
@@ -7,31 +6,30 @@ class Screener():
         self.symbol = symbol
         self.screener = screener
         self.exchange = exchange
-        self.interval = Interval
-        self.data = ()
-
+        self.interval = None
+        self.data = None
     
 
     def detailed_search(self):
         if "1m" in self.interval:
             self.data = TA_Handler(
-                symbol= self.symbol,
-                screener = self.screener,
-                exchange = self.exchange,
-                interval = Interval.INTERVAL_1_MINUTE
+                symbol=self.symbol,
+                screener=self.screener,
+                exchange=self.exchange,
+                interval=Interval.INTERVAL_1_MINUTE
             )
-
-            return self.data
-        
         elif "5m" in self.interval:
             self.data = TA_Handler(
-                symbol = self.symbol,
-                screener= self.screener,
-                exchange = self.exchange,
-                interval = Interval.INTERVAL_5_MINUTES
+                symbol=self.symbol,
+                screener=self.screener,
+                exchange=self.exchange,
+                interval=Interval.INTERVAL_5_MINUTES
             )
 
-            return self.data
+        if self.data:
+            return self.data.get_analysis().summary
+        else:
+            return "No data available"
     
 
     def search(self):
@@ -46,27 +44,36 @@ class Screener():
             
     
     def show_search(self):
-        r = self.data.get_analysis().summary
+        if self.data:
+            return self.data.get_analysis().summary
+        else:
+            return "No data available"
 
 
 def main():
     symbol = input("Choose the ticker for analysis: ")
-    screener = input("Choose where the asset is being screened (america,crypto etc..):  ")
-    exchange = input("Market of circulation: " )
-    interval = input("Time of analysis: ")
+    screener = input("Choose where the asset is being screened (america, crypto, etc.): ")
+    exchange = input("Market of circulation: ")
+    interval = input("Time of analysis (1m or 5m): ")
 
-    asset = Screener(symbol,screener,exchange)
+    asset = Screener(symbol, screener, exchange)
+    asset.interval = interval
     asset.detailed_search()
     
     print(asset.search())
     print(asset.show_search())
 
 
+if __name__ == "__main__":
+   main()
 
 
 
 
 
+
+
+'''
 def run():
     tesla = TA_Handler(
         symbol = "TSLA",
@@ -75,7 +82,7 @@ def run():
         interval = Interval.INTERVAL_5_MINUTES
     )
     print(tesla.get_analysis().summary)
-
+'''
 
 
 

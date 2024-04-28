@@ -80,6 +80,7 @@ menu =  """
 
     1.Create market order 
     2.Create limit order
+    3.Analyze stocks
 
     Select an option:
     """
