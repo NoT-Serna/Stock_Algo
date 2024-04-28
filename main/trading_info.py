@@ -54,7 +54,7 @@ class Screener():
         else:
             return "No data available"
 
-def main():
+def run():
     symbol = input("Choose the ticker for analysis: ")
     screener = input("Choose where the asset is being screened (america, crypto, etc.): ")
     exchange = input("Market of circulation: ")
@@ -68,4 +68,4 @@ def main():
     print(asset.show_search())
 
 if __name__ == "__main__":
-   main()
+   run()
