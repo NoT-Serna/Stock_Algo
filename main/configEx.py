@@ -1,5 +1,5 @@
-ALPACA_KEY =  'PK7S78UTYQN2I91TC4HL'
-ALPACA_SECRET_KEY = 'VKg8w1EOGhaZdmollAKWhsEJ3Sqwv3eTZjZ0Qsdf'
+ALPACA_KEY =  'Add your credentials'
+ALPACA_SECRET_KEY = 'Add your credentials'
 
 HEADERS = {
     'APCA-API-KEY-ID':ALPACA_KEY,
